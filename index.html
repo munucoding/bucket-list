@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나의 버킷 리스트 - 해병대 작전계획</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="min-h-screen py-8">
+    <div class="container mx-auto px-4 max-w-4xl">
+        <!-- 헤더 -->
+        <header class="flex flex-col md:flex-row items-center justify-center gap-6 mb-8 text-center md:text-left">
+            <img
+                src="assets/marine.png"
+                alt="해병대 상징 이미지"
+                class="mil-header-img w-40 h-40 md:w-48 md:h-48 object-cover flex-shrink-0"
+            >
+            <div>
+                <span class="mil-subtitle-tag text-sm">🎖️ 해병대 작전계획</span>
+                <h1 class="mil-title text-5xl mb-2">나의 버킷 리스트</h1>
+                <p class="mil-subtitle text-lg">귀신 잡는 해병! 인생의 목표도 반드시 달성한다! 필승!</p>
+            </div>
+        </header>
+
+        <!-- 통계 -->
+        <div class="mil-panel p-8 mb-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div class="p-4">
+                    <p class="mil-stat-value text-4xl" id="totalCount">0</p>
+                    <p class="mil-stat-label text-sm mt-2">전체 작전</p>
+                </div>
+                <div class="p-4">
+                    <p class="mil-stat-value stat-gold text-4xl" id="completedCount">0</p>
+                    <p class="mil-stat-label text-sm mt-2">완료 전과</p>
+                </div>
+                <div class="p-4">
+                    <p class="mil-stat-value text-4xl" id="progressCount">0</p>
+                    <p class="mil-stat-label text-sm mt-2">작전 수행중</p>
+                </div>
+                <div class="p-4">
+                    <p class="mil-stat-value stat-accent text-4xl" id="completionRate">0%</p>
+                    <p class="mil-stat-label text-sm mt-2">임무 달성률</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 입력 폼 -->
+        <div class="mil-panel p-6 mb-8">
+            <form id="bucketForm" class="flex gap-3">
+                <input
+                    type="text"
+                    id="bucketInput"
+                    placeholder="새로운 작전 목표를 하달하라!"
+                    class="mil-input flex-1 px-4 py-4 rounded-md transition-all"
+                    required
+                >
+                <button
+                    type="submit"
+                    class="mil-btn-primary px-8 py-4 rounded-md"
+                >
+                    임무 등록
+                </button>
+            </form>
+        </div>
+
+        <!-- 필터 -->
+        <div class="mil-panel p-6 mb-8">
+            <div class="flex gap-3 justify-center flex-wrap">
+                <button
+                    class="filter-btn px-6 py-3 rounded-md font-medium active"
+                    data-filter="all"
+                >
+                    전체
+                </button>
+                <button
+                    class="filter-btn px-6 py-3 rounded-md font-medium"
+                    data-filter="active"
+                >
+                    작전 수행중
+                </button>
+                <button
+                    class="filter-btn px-6 py-3 rounded-md font-medium"
+                    data-filter="completed"
+                >
+                    완료 전과
+                </button>
+            </div>
+        </div>
+
+        <!-- 버킷 리스트 목록 -->
+        <div id="bucketListContainer" class="space-y-4">
+            <!-- 동적으로 생성됨 -->
+        </div>
+
+        <!-- 빈 상태 메시지 -->
+        <div id="emptyState" class="text-center py-12 hidden">
+            <p class="mil-empty text-lg">아직 작전 목표가 없다!</p>
+            <p class="mil-empty">위에서 새 임무를 하달하라!</p>
+        </div>
+    </div>
+
+    <!-- 수정 모달 -->
+    <div id="editModal" class="mil-modal-backdrop fixed inset-0 hidden items-center justify-center z-50">
+        <div class="mil-panel max-w-md w-full mx-4 p-6">
+            <h3 class="mil-modal-title text-xl mb-4">임무 내용 수정</h3>
+            <form id="editForm">
+                <input
+                    type="text"
+                    id="editInput"
+                    class="mil-input w-full px-4 py-3 rounded-md mb-4"
+                    required
+                >
+                <div class="flex gap-2 justify-end">
+                    <button
+                        type="button"
+                        id="cancelEdit"
+                        class="mil-btn-secondary px-4 py-2 rounded-md"
+                    >
+                        취소
+                    </button>
+                    <button
+                        type="submit"
+                        class="mil-btn-primary px-4 py-2 rounded-md"
+                    >
+                        수정 완료
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/storage.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

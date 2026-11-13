@@ -1,0 +1,352 @@
+/* 해병대 테마 스타일 (Tailwind CSS 보완용) */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap');
+
+:root {
+    --marine-olive: #3d4a2b;
+    --marine-olive-dark: #242d18;
+    --marine-khaki: #e6e0c3;
+    --marine-khaki-light: #f4f0dc;
+    --marine-ink: #1d2415;
+    --marine-red: #c8102e;
+    --marine-red-dark: #8f0b20;
+    --marine-gold: #ffc60a;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    color: var(--marine-ink);
+    background-color: var(--marine-olive-dark);
+    /* 위장무늬(디지털 카모) 느낌의 배경 */
+    background-image:
+        radial-gradient(ellipse 120px 80px at 15% 20%, rgba(90, 105, 60, 0.55), transparent 70%),
+        radial-gradient(ellipse 160px 100px at 80% 35%, rgba(70, 60, 35, 0.55), transparent 70%),
+        radial-gradient(ellipse 140px 90px at 35% 75%, rgba(100, 115, 70, 0.45), transparent 70%),
+        radial-gradient(ellipse 180px 110px at 90% 90%, rgba(60, 50, 30, 0.5), transparent 70%),
+        linear-gradient(160deg, #3d4a2b 0%, #2a331d 60%, #1f2615 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+}
+
+/* 헤더 */
+.mil-header-img {
+    border: 4px solid var(--marine-ink);
+    border-radius: 6px;
+    box-shadow: 0 0 0 4px var(--marine-olive), 6px 6px 0 var(--marine-gold);
+}
+
+.mil-title {
+    color: var(--marine-gold);
+    font-weight: 900;
+    text-shadow: 3px 3px 0 var(--marine-red-dark), 0 6px 14px rgba(0, 0, 0, 0.5);
+    letter-spacing: -0.5px;
+}
+
+.mil-subtitle {
+    color: var(--marine-khaki);
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.mil-subtitle-tag {
+    display: inline-block;
+    background: var(--marine-red);
+    color: #fff;
+    padding: 2px 12px;
+    border-radius: 2px;
+    font-weight: 900;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+    box-shadow: 2px 2px 0 var(--marine-gold);
+}
+
+/* 패널 (전역 카드) - 군용 서류/전투복 느낌 */
+.mil-panel {
+    background: var(--marine-khaki-light);
+    border: 3px solid var(--marine-ink);
+    border-radius: 6px;
+    box-shadow: 0 0 0 4px var(--marine-olive), 0 10px 25px rgba(0, 0, 0, 0.4);
+    position: relative;
+}
+
+/* 패널 코너 리벳 */
+.mil-panel::before,
+.mil-panel::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--marine-gold);
+    border: 1px solid var(--marine-ink);
+    border-radius: 50%;
+    top: 8px;
+}
+
+.mil-panel::before { left: 8px; }
+.mil-panel::after { right: 8px; }
+
+/* 통계 */
+.mil-stat-value {
+    font-weight: 900;
+    color: var(--marine-ink);
+    transition: all 0.3s ease;
+}
+
+.mil-stat-value.stat-accent { color: var(--marine-red); }
+.mil-stat-value.stat-gold { color: #9a7400; }
+
+.mil-stat-label {
+    color: var(--marine-olive);
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* 입력 필드 */
+.mil-input {
+    background: #fff;
+    border: 2px solid var(--marine-olive);
+    color: var(--marine-ink);
+    font-family: inherit;
+}
+
+.mil-input::placeholder {
+    color: #8a8f78;
+}
+
+.mil-input:focus {
+    outline: none;
+    border-color: var(--marine-red);
+    box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.25);
+}
+
+/* 주 버튼 (추가/저장) - 해병대 빨강 */
+.mil-btn-primary {
+    background: var(--marine-red);
+    color: #fff;
+    border: 2px solid var(--marine-ink);
+    font-weight: 900;
+    letter-spacing: 1px;
+    box-shadow: 3px 3px 0 var(--marine-gold);
+    transition: all 0.15s ease;
+}
+
+.mil-btn-primary:hover {
+    background: var(--marine-red-dark);
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--marine-gold);
+}
+
+/* 보조 버튼 (취소) */
+.mil-btn-secondary {
+    background: var(--marine-khaki);
+    color: var(--marine-ink);
+    border: 2px solid var(--marine-ink);
+    font-weight: 700;
+}
+
+.mil-btn-secondary:hover {
+    background: #d4cda8;
+}
+
+/* 필터 버튼 */
+.filter-btn {
+    background: var(--marine-khaki);
+    color: var(--marine-ink);
+    border: 2px solid var(--marine-ink);
+    font-weight: 700;
+    box-shadow: 3px 3px 0 var(--marine-olive-dark);
+    transition: all 0.2s ease;
+}
+
+.filter-btn:hover {
+    background: var(--marine-khaki-light);
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: var(--marine-olive);
+    color: var(--marine-gold);
+    box-shadow: 3px 3px 0 var(--marine-red);
+}
+
+/* 버킷 리스트 항목 */
+.bucket-item {
+    animation: slideIn 0.3s ease-out;
+    background: var(--marine-khaki-light);
+    border: 2px solid var(--marine-ink);
+    border-left: 8px solid var(--marine-olive);
+    border-radius: 4px;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35);
+    padding: 20px;
+    margin-bottom: 12px;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bucket-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.35);
+}
+
+.bucket-item.is-done {
+    border-left-color: var(--marine-gold);
+}
+
+.bucket-item .bucket-title {
+    color: var(--marine-ink);
+    font-weight: 700;
+}
+
+.bucket-item .bucket-meta {
+    color: var(--marine-olive);
+}
+
+/* 체크박스 (작전 완료 도장) */
+.mil-check {
+    background: #fff;
+    border: 2px solid var(--marine-ink);
+    color: var(--marine-red);
+    border-radius: 2px;
+    transition: all 0.2s ease;
+}
+
+.mil-check:hover {
+    transform: scale(1.1);
+}
+
+.mil-check.is-done {
+    background: var(--marine-olive);
+    border-color: var(--marine-ink);
+    color: var(--marine-gold);
+}
+
+.bucket-item .line-through {
+    text-decoration: line-through;
+    text-decoration-color: var(--marine-red);
+    text-decoration-thickness: 2px;
+    opacity: 0.6;
+}
+
+/* 수정 / 삭제 버튼 */
+.mil-btn-edit {
+    background: var(--marine-olive);
+    color: var(--marine-gold);
+    border: 2px solid var(--marine-ink);
+    font-weight: 700;
+    transition: all 0.15s ease;
+}
+
+.mil-btn-edit:hover {
+    background: var(--marine-olive-dark);
+}
+
+.mil-btn-delete {
+    background: var(--marine-red);
+    color: #fff;
+    border: 2px solid var(--marine-ink);
+    font-weight: 700;
+    transition: all 0.15s ease;
+}
+
+.mil-btn-delete:hover {
+    background: var(--marine-red-dark);
+}
+
+/* 빈 상태 */
+.mil-empty {
+    color: var(--marine-khaki);
+    font-weight: 700;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* 모달 */
+.mil-modal-backdrop {
+    background: rgba(20, 25, 12, 0.75);
+}
+
+.mil-modal-title {
+    color: var(--marine-olive-dark);
+    font-weight: 900;
+    border-bottom: 3px solid var(--marine-red);
+    padding-bottom: 8px;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+#emptyState {
+    animation: fadeIn 0.5s ease-in;
+}
+
+#editModal {
+    animation: fadeIn 0.2s ease-in;
+}
+
+#editModal > div {
+    animation: scaleIn 0.2s ease-out;
+}
+
+/* 스크롤바 - 군용 느낌의 어두운 올리브 */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--marine-olive-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--marine-olive);
+    border: 2px solid var(--marine-ink);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--marine-red);
+}
+
+/* 모바일 반응형 */
+@media (max-width: 640px) {
+    .bucket-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .bucket-item > div:last-child {
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: 8px;
+    }
+
+    .filter-btn {
+        font-size: 0.875rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* 버튼 클릭 효과 */
+button:active {
+    transform: scale(0.98);
+}
