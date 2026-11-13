@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>나의 버킷 리스트 - 해병대 작전계획</title>
+    <title>나의 버킷 리스트</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/styles.css">
@@ -11,17 +11,13 @@
 <body class="min-h-screen py-8">
     <div class="container mx-auto px-4 max-w-4xl">
         <!-- 헤더 -->
-        <header class="flex flex-col md:flex-row items-center justify-center gap-6 mb-8 text-center md:text-left">
-            <img
-                src="assets/marine.png"
-                alt="해병대 상징 이미지"
-                class="mil-header-img w-40 h-40 md:w-48 md:h-48 object-cover flex-shrink-0"
-            >
-            <div>
-                <span class="mil-subtitle-tag text-sm">🎖️ 해병대 작전계획</span>
-                <h1 class="mil-title text-5xl mb-2">나의 버킷 리스트</h1>
-                <p class="mil-subtitle text-lg">귀신 잡는 해병! 인생의 목표도 반드시 달성한다! 필승!</p>
+        <header class="text-center mb-8">
+            <div class="mb-3">
+                <span class="mil-subtitle-tag text-sm">필승! 대한민국 해병대</span>
             </div>
+            <img src="assets/header.png" alt="해병대 기합 사진" class="mil-header-img mx-auto mb-5 h-44 md:h-56 w-auto object-contain">
+            <h1 class="mil-title text-5xl md:text-6xl mb-2">나의 버킷 리스트</h1>
+            <p class="mil-subtitle text-lg">인생에서 꼭 이루고 싶은 것들을 기록하세요</p>
         </header>
 
         <!-- 통계 -->
@@ -29,19 +25,19 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
                 <div class="p-4">
                     <p class="mil-stat-value text-4xl" id="totalCount">0</p>
-                    <p class="mil-stat-label text-sm mt-2">전체 작전</p>
+                    <p class="mil-stat-label text-sm mt-2">전체 임무</p>
                 </div>
                 <div class="p-4">
                     <p class="mil-stat-value stat-gold text-4xl" id="completedCount">0</p>
                     <p class="mil-stat-label text-sm mt-2">완료 전과</p>
                 </div>
                 <div class="p-4">
-                    <p class="mil-stat-value text-4xl" id="progressCount">0</p>
-                    <p class="mil-stat-label text-sm mt-2">작전 수행중</p>
+                    <p class="mil-stat-value stat-accent text-4xl" id="progressCount">0</p>
+                    <p class="mil-stat-label text-sm mt-2">작전 진행중</p>
                 </div>
                 <div class="p-4">
                     <p class="mil-stat-value stat-accent text-4xl" id="completionRate">0%</p>
-                    <p class="mil-stat-label text-sm mt-2">임무 달성률</p>
+                    <p class="mil-stat-label text-sm mt-2">달성률</p>
                 </div>
             </div>
         </div>
@@ -52,15 +48,15 @@
                 <input
                     type="text"
                     id="bucketInput"
-                    placeholder="새로운 작전 목표를 하달하라!"
-                    class="mil-input flex-1 px-4 py-4 rounded-md transition-all"
+                    placeholder="새로운 작전 목표를 입력하라..."
+                    class="mil-input flex-1 px-4 py-4 rounded-xl"
                     required
                 >
                 <button
                     type="submit"
-                    class="mil-btn-primary px-8 py-4 rounded-md"
+                    class="mil-btn-primary px-8 py-4 rounded-xl"
                 >
-                    임무 등록
+                    추가
                 </button>
             </form>
         </div>
@@ -69,22 +65,22 @@
         <div class="mil-panel p-6 mb-8">
             <div class="flex gap-3 justify-center flex-wrap">
                 <button
-                    class="filter-btn px-6 py-3 rounded-md font-medium active"
+                    class="filter-btn px-6 py-3 rounded-xl font-medium active"
                     data-filter="all"
                 >
                     전체
                 </button>
                 <button
-                    class="filter-btn px-6 py-3 rounded-md font-medium"
+                    class="filter-btn px-6 py-3 rounded-xl font-medium"
                     data-filter="active"
                 >
-                    작전 수행중
+                    진행중
                 </button>
                 <button
-                    class="filter-btn px-6 py-3 rounded-md font-medium"
+                    class="filter-btn px-6 py-3 rounded-xl font-medium"
                     data-filter="completed"
                 >
-                    완료 전과
+                    완료
                 </button>
             </div>
         </div>
@@ -96,38 +92,46 @@
 
         <!-- 빈 상태 메시지 -->
         <div id="emptyState" class="text-center py-12 hidden">
-            <p class="mil-empty text-lg">아직 작전 목표가 없다!</p>
-            <p class="mil-empty">위에서 새 임무를 하달하라!</p>
+            <p class="mil-empty text-lg">아직 버킷 리스트가 없습니다.</p>
+            <p class="mil-empty">위에서 새로운 목표를 추가해보세요!</p>
         </div>
     </div>
 
     <!-- 수정 모달 -->
     <div id="editModal" class="mil-modal-backdrop fixed inset-0 hidden items-center justify-center z-50">
-        <div class="mil-panel max-w-md w-full mx-4 p-6">
-            <h3 class="mil-modal-title text-xl mb-4">임무 내용 수정</h3>
+        <div class="mil-panel p-6 max-w-md w-full mx-4">
+            <h3 class="mil-modal-title text-xl mb-4">버킷 리스트 수정</h3>
             <form id="editForm">
                 <input
                     type="text"
                     id="editInput"
-                    class="mil-input w-full px-4 py-3 rounded-md mb-4"
+                    class="mil-input w-full px-4 py-3 rounded-lg mb-4"
                     required
                 >
                 <div class="flex gap-2 justify-end">
                     <button
                         type="button"
                         id="cancelEdit"
-                        class="mil-btn-secondary px-4 py-2 rounded-md"
+                        class="mil-btn-secondary px-4 py-2 rounded-lg"
                     >
                         취소
                     </button>
                     <button
                         type="submit"
-                        class="mil-btn-primary px-4 py-2 rounded-md"
+                        class="mil-btn-primary px-4 py-2 rounded-lg"
                     >
-                        수정 완료
+                        저장
                     </button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- 기합 연출 오버레이 (추가/달성 시 표시) -->
+    <div id="gihapOverlay" class="gihap-overlay" aria-hidden="true">
+        <div class="gihap-content">
+            <img src="assets/gihap.png" alt="" class="gihap-img">
+            <p class="gihap-text">기합이야!</p>
         </div>
     </div>
 

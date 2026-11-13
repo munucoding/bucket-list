@@ -82,6 +82,23 @@ class BucketListApp {
         this.bucketInput.value = '';
         this.bucketInput.focus();
         this.render();
+        this.showGihap();
+    }
+
+    /**
+     * 기합 연출 표시 (추가/달성 시)
+     */
+    showGihap() {
+        const overlay = document.getElementById('gihapOverlay');
+        if (!overlay) return;
+
+        // 애니메이션 재시작을 위해 클래스 제거 후 리플로우
+        overlay.classList.remove('show');
+        void overlay.offsetWidth;
+        overlay.classList.add('show');
+
+        clearTimeout(this.gihapTimer);
+        this.gihapTimer = setTimeout(() => overlay.classList.remove('show'), 1600);
     }
 
     /**
@@ -102,8 +119,11 @@ class BucketListApp {
      * 완료 상태 토글
      */
     handleToggle(id) {
-        BucketStorage.toggleComplete(id);
+        const isNowCompleted = BucketStorage.toggleComplete(id);
         this.render();
+        if (isNowCompleted) {
+            this.showGihap();
+        }
     }
 
     /**
